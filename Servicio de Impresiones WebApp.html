@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#06060a">
+<title>PrintMaster Pro · Impresión & Papelería</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                colors: {
+                    darkBg: '#06060a',
+                    cardBg: '#101015',
+                    cardHover: '#171720',
+                    brandRed: '#ef4444',
+                    brandRedDark: '#dc2626',
+                },
+                boxShadow: {
+                    'neon': '0 0 35px rgba(239, 68, 68, 0.22)',
+                    'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    'subtle': '0 4px 24px -2px rgba(0, 0, 0, 0.6)'
+                }
+            }
+        }
+    }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+/* ══════════════════════════════════════════════════════
+   DESIGN TOKENS
+   ══════════════════════════════════════════════════════ */
+:root{
+    --bg-0: #05050a;
+    --bg-1: #0a0a11;
+    --surface: rgba(20, 20, 27, .62);
+    --surface-2: rgba(11, 11, 16, .82);
+    --stroke: rgba(255,255,255,.065);
+    --stroke-strong: rgba(255,255,255,.12);
+    --accent: #ff3d3d;
+    --accent-2: #ff6b4a;
+    --accent-deep: #c81e1e;
+    --emerald: #10b981;
+    --txt: #f7f7f9;
+    --txt-mute: #8b8b96;
+    --txt-dim: #5d5d68;
+    --r-xl: 30px;
+    --r-lg: 22px;
+    --r-md: 16px;
+    --ease: cubic-bezier(.2, .8, .2, 1);
+    --spring: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+*{ -webkit-tap-highlight-color: transparent; }
+
+html, body{ height: 100%; }
+
+body{
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg-0);
+    color: var(--txt);
+    overflow: hidden;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02","cv03","cv04","ss01";
+}
+
+/* ─── Ambient aurora field ───────────────────────────── */
+.ambient{
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none; overflow: hidden;
+}
+.ambient .blob{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: .55;
+    will-change: transform;
+}
+.blob-1{
+    width: 420px; height: 420px;
+    top: -160px; left: -120px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,61,61,.55), transparent 65%);
+    animation: drift1 22s var(--ease) infinite alternate;
+}
+.blob-2{
+    width: 360px; height: 360px;
+    bottom: -140px; right: -110px;
+    background: radial-gradient(circle at 70% 70%, rgba(120,60,255,.38), transparent 65%);
+    animation: drift2 27s var(--ease) infinite alternate;
+}
+.blob-3{
+    width: 300px; height: 300px;
+    top: 45%; left: 55%;
+    background: radial-gradient(circle at 50% 50%, rgba(255,140,60,.22), transparent 68%);
+    animation: drift3 32s var(--ease) infinite alternate;
+}
+@keyframes drift1{
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    100% { transform: translate3d(70px, 60px, 0) scale(1.18); }
+}
+@keyframes drift2{
+    0%   { transform: translate3d(0,0,0) scale(1.1); }
+    100% { transform: translate3d(-80px, -50px, 0) scale(.92); }
+}
+@keyframes drift3{
+    0%   { transform: translate3d(0,0,0) scale(.9); }
+    100% { transform: translate3d(-60px, 70px, 0) scale(1.2); }
+}
+
+/* ─── Fine grain film texture ────────────────────────── */
+body::after{
+    content:'';
+    position: fixed; inset: -50%;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: .028;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar{ width: 3px; height: 3px; }
+::-webkit-scrollbar-track{ background: transparent; }
+::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.13); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover{ background: rgba(255,61,61,.45); }
+
+/* ══════════════════════════════════════════════════════
+   APP SHELL
+   ══════════════════════════════════════════════════════ */
+.stage{
+    position: relative; z-index: 2;
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0;
+}
+@media (min-width: 640px){ .stage{ padding: 20px; } }
+
+.app-shell{
+    position: relative;
+    width: 100%; max-width: 430px;
+    height: 100vh; height: 100dvh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    background:
+        radial-gradient(120% 80% at 50% -10%, rgba(255,61,61,.10), transparent 55%),
+        linear-gradient(180deg, #0b0b12 0%, #07070c 45%, #050509 100%);
+}
+@media (min-width: 640px){
+    .app-shell{
+        height: min(94dvh, 900px);
+        border-radius: 46px;
+        box-shadow:
+            0 0 0 1px rgba(255,255,255,.07),
+            0 0 0 8px rgba(255,255,255,.018),
+            0 70px 130px -50px rgba(0,0,0,1),
+            0 0 110px -40px rgba(255,61,61,.35);
+    }
+}
+
+/* top light bar */
+.app-shell::before{
+    content:'';
+    position: absolute; top: 0; left: 12%; right: 12%;
+    height: 1px; z-index: 40;
+    background: linear-gradient(90deg, transparent, rgba(255,61,61,.85), rgba(255,140,90,.7), transparent);
+    filter: blur(.3px);
+}
+
+/* ══════════════════════════════════════════════════════
+   SCROLL AREA
+   ══════════════════════════════════════════════════════ */
+#main-container{
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 22px 18px 190px;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+#main-container::-webkit-scrollbar{ display: none; }
+
+/* view entrance */
+.view-section:not(.hidden){
+    animation: viewIn .55s var(--ease) both;
+}
+@keyframes viewIn{
+    from{ opacity: 0; transform: translateY(14px) scale(.985); }
+    to  { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ══════════════════════════════════════════════════════
+   SURFACES
+   ══════════════════════════════════════════════════════ */
+.surface{
+    position: relative;
+    border-radius: var(--r-xl);
+    background: linear-gradient(158deg, rgba(26,26,34,.72) 0%, rgba(12,12,17,.86) 100%);
+    border: 1px solid var(--stroke);
+    backdrop-filter: blur(26px) saturate(140%);
+    -webkit-backdrop-filter: blur(26px) saturate(140%);
+    box-shadow:
+        0 1px 0 0 rgba(255,255,255,.055) inset,
+        0 26px 50px -30px rgba(0,0,0,.95);
+}
+
+/* shimmer sweep */
+.shine{ overflow: hidden; }
+.shine::after{
+    content:'';
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(115deg, transparent 32%, rgba(255,255,255,.075) 46%, transparent 62%);
+    transform: translateX(-130%);
+    transition: transform .95s var(--ease);
+    pointer-events: none;
+}
+.shine:hover::after{ transform: translateX(130%); }
+
+/* ══════════════════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════════════════ */
+.hero{
+    position: relative;
+    border-radius: 34px;
+    padding: 22px 20px 20px;
+    overflow: hidden;
+    background:
+        radial-gradient(140% 110% at 8% -20%, rgba(255,61,61,.30), transparent 52%),
+        radial-gradient(110% 100% at 100% 110%, rgba(120,60,255,.22), transparent 55%),
+        linear-gradient(160deg, rgba(30,20,24,.85), rgba(10,10,15,.94));
+    border: 1px solid rgba(255,61,61,.22);
+    box-shadow:
+        0 1px 0 rgba(255,255,255,.07) inset,
+        0 0 0 1px rgba(255,255,255,.02),
+        0 40px 70px -40px rgba(255,61,61,.55),
+        0 30px 60px -35px rgba(0,0,0,1);
+}
+/* grid lines */
+.hero::before{
+    content:'';
+    position: absolute; inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size: 34px 34px;
+    mask-image: radial-gradient(100% 80% at 70% 0%, #000 10%, transparent 72%);
+    -webkit-mask-image: radial-gradient(100% 80% at 70% 0%, #000 10%, transparent 72%);
+    pointer-events: none;
+}
+/* top gradient hairline */
+.hero::after{
+    content:'';
+    position: absolute; top: 0; left: 18px; right: 18px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,120,90,.9), transparent);
+    opacity: .8;
+}
+
+.hero-orb{
+    position: absolute;
+    width: 150px; height: 150px;
+    right: -46px; top: -52px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, rgba(255,110,80,.55), rgba(255,61,61,.12) 55%, transparent 72%);
+    filter: blur(18px);
+    animation: pulseGlow 6s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes pulseGlow{
+    0%,100%{ opacity:.55; transform: scale(1); }
+    50%    { opacity:.9;  transform: scale(1.14); }
+}
+
+/* ─── Badge ──────────────────────────────────────────── */
+.badge{
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 12px 6px 10px;
+    border-radius: 999px;
+    font-size: 9.5px; font-weight: 700;
+    letter-spacing: .11em; text-transform: uppercase;
+    color: #ffb4a8;
+    background: linear-gradient(180deg, rgba(255,61,61,.20), rgba(255,61,61,.07));
+    border: 1px solid rgba(255,61,61,.32);
+    box-shadow: 0 0 22px -6px rgba(255,61,61,.6) inset;
+}
+.badge .dot{
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #ff5a4a;
+    box-shadow: 0 0 0 0 rgba(255,90,74,.7);
+    animation: ping 1.9s cubic-bezier(0,0,.2,1) infinite;
+}
+@keyframes ping{
+    0%  { box-shadow: 0 0 0 0 rgba(255,90,74,.75); }
+    70% { box-shadow: 0 0 0 7px rgba(255,90,74,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(255,90,74,0); }
+}
+
+.hero-title{
+    font-family: 'Sora', 'Inter', sans-serif;
+    font-size: 27px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -.035em;
+    color: #fff;
+}
+.grad-text{
+    background: linear-gradient(100deg, #ff5a4a 0%, #ff2f6d 48%, #ff8a4a 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* ─── Price tiles ────────────────────────────────────── */
+.tile{
+    position: relative;
+    border-radius: var(--r-lg);
+    padding: 15px 15px 14px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform .22s var(--spring), border-color .22s var(--ease), box-shadow .28s var(--ease);
+    background: linear-gradient(165deg, rgba(255,255,255,.05), rgba(255,255,255,.012));
+    border: 1px solid var(--stroke);
+}
+.tile:active{ transform: scale(.955); }
+
+.tile-color{
+    background:
+        radial-gradient(110% 90% at 100% 0%, rgba(255,61,61,.22), transparent 60%),
+        linear-gradient(165deg, rgba(255,255,255,.06), rgba(255,255,255,.012));
+    border-color: rgba(255,61,61,.34);
+    box-shadow: 0 22px 45px -28px rgba(255,61,61,.9);
+}
+.tile-color:hover{
+    border-color: rgba(255,61,61,.72);
+    box-shadow: 0 26px 55px -26px rgba(255,61,61,1), 0 0 0 1px rgba(255,61,61,.16);
+}
+.tile-mono:hover{
+    border-color: rgba(255,255,255,.22);
+    box-shadow: 0 24px 48px -30px rgba(255,255,255,.35);
+}
+.tile .go{
+    position: absolute; top: 11px; right: 11px;
+    width: 22px; height: 22px; border-radius: 8px;
+    display: grid; place-items: center;
+    font-size: 9px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.08);
+    color: rgba(255,255,255,.6);
+    transition: all .25s var(--ease);
+}
+.tile:hover .go{
+    background: var(--accent); border-color: var(--accent);
+    color: #fff; transform: translate(1px,-1px);
+    box-shadow: 0 6px 18px -6px rgba(255,61,61,1);
+}
+
+.swatch{
+    width: 30px; height: 30px; border-radius: 11px;
+    display: grid; place-items: center;
+    font-size: 11px; font-weight: 800;
+    box-shadow: 0 6px 16px -8px rgba(0,0,0,.9), 0 1px 0 rgba(255,255,255,.25) inset;
+}
+.swatch-color{ background: conic-gradient(from 210deg, #fbbf24, #ef4444, #a855f7, #3b82f6, #10b981, #fbbf24); }
+.swatch-mono{ background: linear-gradient(150deg, #f4f4f5, #71717a 55%, #3f3f46); color: #0a0a0a; }
+
+.price{
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    letter-spacing: -.04em;
+}
+
+/* ══════════════════════════════════════════════════════
+   SECTION HEADINGS
+   ══════════════════════════════════════════════════════ */
+.icon-chip{
+    width: 44px; height: 44px;
+    border-radius: 15px;
+    display: grid; place-items: center;
+    color: #fff;
+    background: linear-gradient(150deg, #ff4d3d 0%, #c81e1e 100%);
+    box-shadow:
+        0 10px 24px -10px rgba(255,61,61,.95),
+        0 1px 0 rgba(255,255,255,.35) inset,
+        0 -1px 0 rgba(0,0,0,.35) inset;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+.icon-chip.soft{
+    background: linear-gradient(150deg, rgba(255,61,61,.20), rgba(255,61,61,.06));
+    border: 1px solid rgba(255,61,61,.30);
+    color: #ff6b5a;
+    box-shadow: 0 10px 26px -16px rgba(255,61,61,.8);
+}
+
+/* ══════════════════════════════════════════════════════
+   INVESTIGACIONES ROWS
+   ══════════════════════════════════════════════════════ */
+.inv-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 8px;
+}
+.inv-row{
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 15px;
+    text-align: left;
+    background: linear-gradient(180deg, rgba(255,255,255,.042), rgba(255,255,255,.012));
+    border: 1px solid rgba(255,255,255,.055);
+    transition: all .22s var(--ease);
+    position: relative;
+    overflow: hidden;
+}
+.inv-row::before{
+    content:'';
+    position: absolute; left: 0; top: 18%; bottom: 18%;
+    width: 2px; border-radius: 2px;
+    background: linear-gradient(180deg, #ff5a4a, #c81e1e);
+    opacity: 0; transform: scaleY(.4);
+    transition: all .25s var(--ease);
+}
+.inv-row:hover{
+    border-color: rgba(255,61,61,.5);
+    background: linear-gradient(180deg, rgba(255,61,61,.15), rgba(255,61,61,.045));
+    transform: translateY(-1.5px);
+    box-shadow: 0 12px 26px -16px rgba(255,61,61,.95);
+}
+.inv-row:hover::before{ opacity: 1; transform: scaleY(1); }
+.inv-row:active{ transform: scale(.97); }
+.inv-row .q{ font-size: 12px; font-weight: 600; color: #dedee4; letter-spacing: -.01em; }
+.inv-row .q em{ font-style: normal; font-size: 9.5px; color: var(--txt-dim); font-weight: 500; margin-left: 2px; }
+.inv-row .p{
+    font-family: 'Sora', sans-serif;
+    font-size: 12px; font-weight: 800; letter-spacing: -.02em;
+    color: #ff6b5a;
+    transition: transform .2s var(--spring);
+}
+.inv-row:hover .p{ transform: scale(1.06); }
+
+/* ══════════════════════════════════════════════════════
+   SERVICE ROWS (catalog)
+   ══════════════════════════════════════════════════════ */
+.svc{
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px;
+    padding: 15px 16px;
+    border-radius: 24px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(158deg, rgba(26,26,34,.7), rgba(12,12,17,.85));
+    border: 1px solid var(--stroke);
+    transition: all .25s var(--ease);
+}
+.svc:hover{
+    border-color: rgba(255,61,61,.4);
+    transform: translateY(-2px);
+    box-shadow: 0 24px 44px -30px rgba(255,61,61,.9), 0 1px 0 rgba(255,255,255,.06) inset;
+}
+.svc:active{ transform: scale(.978); }
+.svc .chev{
+    width: 30px; height: 30px; border-radius: 11px;
+    display: grid; place-items: center;
+    font-size: 10px;
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.07);
+    color: var(--txt-mute);
+    transition: all .25s var(--ease);
+    flex-shrink: 0;
+}
+.svc:hover .chev{
+    background: linear-gradient(150deg, #ff4d3d, #c81e1e);
+    border-color: transparent; color: #fff;
+    box-shadow: 0 8px 20px -8px rgba(255,61,61,1);
+    transform: translateX(2px);
+}
+
+/* ══════════════════════════════════════════════════════
+   FEATURE PILLS
+   ══════════════════════════════════════════════════════ */
+.feat{
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 6px;
+}
+.feat .fi{
+    width: 28px; height: 28px; border-radius: 10px;
+    display: grid; place-items: center;
+    font-size: 10px;
+    color: #ff6b5a;
+    background: linear-gradient(160deg, rgba(255,61,61,.16), rgba(255,61,61,.05));
+    border: 1px solid rgba(255,61,61,.26);
+    flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════════
+   FLOATING CHECKOUT BAR
+   ══════════════════════════════════════════════════════ */
+#quick-checkout-bar{
+    position: absolute;
+    left: 14px; right: 14px; bottom: 88px;
+    z-index: 45;
+    border-radius: 24px;
+    padding: 12px 13px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+    color: #fff;
+    background:
+        radial-gradient(120% 160% at 0% 0%, rgba(255,140,110,.55), transparent 55%),
+        linear-gradient(120deg, #e03030 0%, #b31414 100%);
+    border: 1px solid rgba(255,150,130,.42);
+    box-shadow:
+        0 1px 0 rgba(255,255,255,.28) inset,
+        0 26px 50px -22px rgba(255,61,61,.85),
+        0 18px 40px -20px rgba(0,0,0,.9);
+    transition: transform .45s var(--spring), opacity .35s var(--ease);
+}
+#quick-checkout-bar::after{
+    content:'';
+    position:absolute; inset:0; border-radius:inherit;
+    background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.18) 48%, transparent 60%);
+    background-size: 250% 100%;
+    animation: sheen 3.6s linear infinite;
+    pointer-events: none;
+}
+@keyframes sheen{
+    0%  { background-position: 180% 0; }
+    100%{ background-position: -80% 0; }
+}
+
+.bar-count{
+    width: 38px; height: 38px; border-radius: 14px;
+    display: grid; place-items: center;
+    font-family: 'Sora', sans-serif;
+    font-weight: 800; font-size: 13px;
+    background: rgba(255,255,255,.22);
+    border: 1px solid rgba(255,255,255,.3);
+    box-shadow: 0 1px 0 rgba(255,255,255,.35) inset;
+    flex-shrink: 0;
+}
+
+.btn-ghost{
+    padding: 9px 14px;
+    border-radius: 14px;
+    font-size: 11.5px; font-weight: 700;
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.28);
+    color: #fff;
+    transition: all .2s var(--ease);
+}
+.btn-ghost:hover{ background: rgba(255,255,255,.30); }
+.btn-ghost:active{ transform: scale(.95); }
+
+.btn-wa{
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    padding: 9px 15px;
+    border-radius: 14px;
+    font-size: 11.5px; font-weight: 800;
+    color: #04231a;
+    background: linear-gradient(160deg, #6ef0bd, #10b981 60%, #059669);
+    border: 1px solid rgba(255,255,255,.35);
+    box-shadow:
+        0 1px 0 rgba(255,255,255,.5) inset,
+        0 12px 24px -10px rgba(16,185,129,.9);
+    transition: all .2s var(--ease);
+}
+.btn-wa:hover{ filter: brightness(1.07); }
+.btn-wa:active{ transform: scale(.95); }
+
+/* ══════════════════════════════════════════════════════
+   DOCK NAV
+   ══════════════════════════════════════════════════════ */
+.dock-wrap{
+    position: absolute; left: 0; right: 0; bottom: 0;
+    z-index: 46;
+    padding: 0 14px calc(14px + env(safe-area-inset-bottom, 0px));
+    pointer-events: none;
+}
+.dock{
+    pointer-events: auto;
+    position: relative;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 6px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(18,18,25,.86), rgba(9,9,14,.94));
+    border: 1px solid rgba(255,255,255,.085);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    box-shadow:
+        0 1px 0 rgba(255,255,255,.07) inset,
+        0 30px 55px -30px rgba(0,0,0,1);
+}
+.dock-pill{
+    position: absolute;
+    top: 6px; bottom: 6px; left: 6px;
+    width: calc(50% - 8px);
+    border-radius: 18px;
+    background:
+        radial-gradient(100% 130% at 50% 0%, rgba(255,120,100,.35), transparent 60%),
+        linear-gradient(180deg, rgba(255,61,61,.30), rgba(255,61,61,.12));
+    border: 1px solid rgba(255,61,61,.42);
+    box-shadow: 0 10px 26px -14px rgba(255,61,61,.95), 0 1px 0 rgba(255,255,255,.12) inset;
+    transition: transform .42s var(--spring);
+    pointer-events: none;
+}
+.dock-pill.right{ transform: translateX(calc(100% + 4px)); }
+
+.dock-btn{
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px;
+    padding: 9px 0 8px;
+    border-radius: 18px;
+    color: var(--txt-dim);
+    transition: color .25s var(--ease), transform .2s var(--ease);
+}
+.dock-btn i{ font-size: 15px; transition: transform .3s var(--spring); }
+.dock-btn span{ font-size: 9.5px; font-weight: 700; letter-spacing: .04em; }
+.dock-btn:active{ transform: scale(.93); }
+.dock-btn.active{ color: #fff; }
+.dock-btn.active i{ transform: translateY(-1px) scale(1.08); }
+
+/* ══════════════════════════════════════════════════════
+   MODALS
+   ══════════════════════════════════════════════════════ */
+.modal-overlay{
+    position: fixed; inset: 0; z-index: 60;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding: 0;
+    background: rgba(3,3,6,.72);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+}
+@media (min-width: 640px){
+    .modal-overlay{ align-items: center; padding: 20px; }
+}
+.modal-overlay.hidden{ display: none; }
+
+.modal-panel{
+    position: relative;
+    width: 100%; max-width: 420px;
+    border-radius: 32px 32px 0 0;
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+    max-height: 92dvh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    background:
+        radial-gradient(120% 60% at 50% -8%, rgba(255,61,61,.16), transparent 60%),
+        linear-gradient(180deg, rgba(17,17,23,.985), rgba(9,9,13,.99));
+    border: 1px solid rgba(255,255,255,.10);
+    border-bottom: none;
+    box-shadow: 0 -30px 70px -30px rgba(0,0,0,1), 0 1px 0 rgba(255,255,255,.08) inset;
+    animation: sheetUp .48s var(--spring) both;
+}
+@media (min-width: 640px){
+    .modal-panel{
+        border-radius: 32px;
+        border-bottom: 1px solid rgba(255,255,255,.10);
+        padding: 26px 24px;
+        max-height: 88dvh;
+        animation: popIn .5s var(--spring) both;
+    }
+}
+.modal-panel::-webkit-scrollbar{ display: none; }
+
+.modal-panel::before{
+    content:'';
+    position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 4px; border-radius: 999px;
+    background: rgba(255,255,255,.14);
+}
+@media (min-width: 640px){ .modal-panel::before{ display: none; } }
+
+@keyframes sheetUp{
+    from{ opacity: 0; transform: translateY(46px); }
+    to  { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn{
+    from{ opacity: 0; transform: translateY(22px) scale(.94); }
+    to  { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close{
+    position: absolute; top: 16px; right: 16px;
+    width: 32px; height: 32px; border-radius: 12px;
+    display: grid; place-items: center;
+    font-size: 12px;
+    color: var(--txt-mute);
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.08);
+    transition: all .2s var(--ease);
+    z-index: 3;
+}
+.modal-close:hover{ color: #fff; background: rgba(255,61,61,.22); border-color: rgba(255,61,61,.45); }
+.modal-close:active{ transform: scale(.9); }
+
+.modal-title{
+    font-family: 'Sora', sans-serif;
+    font-size: 16.5px; font-weight: 700;
+    letter-spacing: -.02em;
+    display: flex; align-items: center; gap: 9px;
+}
+
+/* ══════════════════════════════════════════════════════
+   FORM FIELDS
+   ══════════════════════════════════════════════════════ */
+.label{
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: .09em; text-transform: uppercase;
+    color: var(--txt-dim);
+}
+.field{
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px 15px;
+    border-radius: 16px;
+    font-size: 13.5px; font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    background: linear-gradient(180deg, rgba(255,255,255,.038), rgba(255,255,255,.014));
+    border: 1px solid rgba(255,255,255,.075);
+    outline: none;
+    transition: all .22s var(--ease);
+    appearance: none;
+}
+.field::placeholder{ color: #4a4a55; font-weight: 400; }
+.field:focus{
+    border-color: rgba(255,61,61,.6);
+    background: linear-gradient(180deg, rgba(255,61,61,.075), rgba(255,61,61,.02));
+    box-shadow: 0 0 0 4px rgba(255,61,61,.11);
+}
+textarea.field{ resize: none; line-height: 1.5; }
+
+select.field{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b8b96' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 15px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+select.field option{ background: #101015; color: #fff; }
+
+input[type=number].field::-webkit-outer-spin-button,
+input[type=number].field::-webkit-inner-spin-button{ -webkit-appearance: none; margin: 0; }
+input[type=number].field{ -moz-appearance: textfield; }
+
+/* ══════════════════════════════════════════════════════
+   SUMMARY / TOTAL BOXES
+   ══════════════════════════════════════════════════════ */
+.summary{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px;
+    border-radius: 20px;
+    background:
+        radial-gradient(120% 140% at 100% 0%, rgba(255,61,61,.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+    border: 1px solid rgba(255,255,255,.075);
+    box-shadow: 0 1px 0 rgba(255,255,255,.05) inset;
+}
+.summary .val{
+    font-family: 'Sora', sans-serif;
+    font-size: 21px; font-weight: 800; letter-spacing: -.045em;
+    background: linear-gradient(100deg, #ff8a72, #ff3d3d);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ══════════════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════════════ */
+.btn{
+    padding: 13px 16px;
+    border-radius: 17px;
+    font-size: 12.5px; font-weight: 700;
+    letter-spacing: -.005em;
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    transition: all .2s var(--ease);
+    border: 1px solid transparent;
+}
+.btn:active{ transform: scale(.955); }
+
+.btn-soft{
+    background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+    border-color: rgba(255,255,255,.085);
+    color: #e8e8ec;
+}
+.btn-soft:hover{ background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05)); }
+
+.btn-primary{
+    color: #fff;
+    background: linear-gradient(150deg, #ff5544 0%, #e02020 55%, #b31414 100%);
+    border-color: rgba(255,140,120,.4);
+    box-shadow: 0 1px 0 rgba(255,255,255,.28) inset, 0 14px 28px -12px rgba(255,61,61,.95);
+}
+.btn-primary:hover{ filter: brightness(1.08); }
+
+.btn-danger{
+    background: linear-gradient(180deg, rgba(255,61,61,.14), rgba(255,61,61,.05));
+    border-color: rgba(255,61,61,.3);
+    color: #ff8a7a;
+}
+.btn-danger:hover{ background: linear-gradient(180deg, rgba(255,61,61,.24), rgba(255,61,61,.1)); }
+
+/* ══════════════════════════════════════════════════════
+   PAYMENT OPTIONS
+   ══════════════════════════════════════════════════════ */
+.pay-opt{
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 12px;
+    border-radius: 17px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,.07);
+    background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+    transition: all .22s var(--ease);
+}
+.pay-opt:active{ transform: scale(.97); }
+.pay-opt.sel{
+    border-color: rgba(255,61,61,.55);
+    background: linear-gradient(180deg, rgba(255,61,61,.16), rgba(255,61,61,.05));
+    box-shadow: 0 12px 28px -18px rgba(255,61,61,.95), 0 1px 0 rgba(255,255,255,.06) inset;
+}
+.pay-opt.sel-green{
+    border-color: rgba(16,185,129,.55);
+    background: linear-gradient(180deg, rgba(16,185,129,.16), rgba(16,185,129,.05));
+    box-shadow: 0 12px 28px -18px rgba(16,185,129,.95);
+}
+.pay-opt input[type=radio]{
+    appearance: none; -webkit-appearance: none;
+    width: 15px; height: 15px; border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,.28);
+    display: grid; place-items: center;
+    transition: all .2s var(--ease);
+    flex-shrink: 0;
+}
+.pay-opt input[type=radio]:checked{
+    border-color: #ff4d3d;
+    background: #ff4d3d;
+    box-shadow: 0 0 0 3px rgba(255,61,61,.18);
+}
+.pay-opt input[type=radio]:checked::after{
+    content:''; width: 5px; height: 5px; border-radius: 50%; background: #fff;
+}
+
+/* ══════════════════════════════════════════════════════
+   CART ITEMS
+   ══════════════════════════════════════════════════════ */
+.cart-item{
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    padding: 13px 14px;
+    border-radius: 19px;
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.012));
+    border: 1px solid rgba(255,255,255,.06);
+    animation: itemIn .35s var(--ease) both;
+}
+@keyframes itemIn{
+    from{ opacity:0; transform: translateY(8px) scale(.98); }
+    to  { opacity:1; transform: none; }
+}
+.cart-del{
+    width: 28px; height: 28px; border-radius: 10px;
+    display: grid; place-items: center;
+    font-size: 10px;
+    color: var(--txt-dim);
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.07);
+    transition: all .2s var(--ease);
+    flex-shrink: 0;
+}
+.cart-del:hover{ color: #ff6b5a; background: rgba(255,61,61,.16); border-color: rgba(255,61,61,.4); }
+.cart-del:active{ transform: scale(.88); }
+
+.empty-state{
+    text-align: center; padding: 40px 0 30px;
+    color: var(--txt-dim);
+}
+.empty-state i{
+    font-size: 34px; opacity: .35; display: block; margin-bottom: 12px;
+    background: linear-gradient(150deg, rgba(255,61,61,.6), rgba(255,61,61,.1));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ══════════════════════════════════════════════════════
+   TOAST
+   ══════════════════════════════════════════════════════ */
+#toast{
+    position: fixed;
+    top: calc(18px + env(safe-area-inset-top, 0px));
+    left: 50%;
+    transform: translate(-50%, -22px) scale(.94);
+    z-index: 9999;
+    display: flex; align-items: center; gap: 9px;
+    padding: 11px 18px 11px 15px;
+    border-radius: 999px;
+    font-size: 12px; font-weight: 600;
+    white-space: nowrap;
+    color: #fff;
+    background: linear-gradient(180deg, rgba(24,24,32,.97), rgba(12,12,17,.98));
+    border: 1px solid rgba(255,61,61,.34);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 22px 45px -22px rgba(0,0,0,1), 0 0 30px -12px rgba(255,61,61,.55);
+    opacity: 0; pointer-events: none;
+    transition: all .45s var(--spring);
+    max-width: calc(100vw - 32px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#toast.show{
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+}
+
+/* ══════════════════════════════════════════════════════
+   WHATSAPP HELPER
+   ══════════════════════════════════════════════════════ */
+.wa-orb{
+    width: 60px; height: 60px; border-radius: 22px;
+    display: grid; place-items: center;
+    font-size: 26px;
+    color: #6ef0bd;
+    background: linear-gradient(160deg, rgba(16,185,129,.25), rgba(16,185,129,.06));
+    border: 1px solid rgba(16,185,129,.4);
+    box-shadow: 0 20px 40px -20px rgba(16,185,129,.95), 0 1px 0 rgba(255,255,255,.1) inset;
+    animation: orbFloat 3.4s ease-in-out infinite;
+}
+@keyframes orbFloat{
+    0%,100%{ transform: translateY(0); }
+    50%    { transform: translateY(-5px); }
+}
+
+.step-list{ counter-reset: step; }
+.step-list li{
+    position: relative;
+    padding-left: 22px;
+    counter-increment: step;
+}
+.step-list li::before{
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 15px; height: 15px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 8.5px; font-weight: 800;
+    color: #6ef0bd;
+    background: rgba(16,185,129,.16);
+    border: 1px solid rgba(16,185,129,.34);
+}
+
+/* ══════════════════════════════════════════════════════
+   UTILITIES
+   ══════════════════════════════════════════════════════ */
+.divider{
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.09) 20%, rgba(255,255,255,.09) 80%, transparent);
+}
+.interactive-scale{ transition: transform .16s var(--spring); }
+.interactive-scale:active{ transform: scale(.955); }
+
+.hidden{ display: none !important; }
+
+@media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════ AMBIENT FIELD ══════ -->
+<div class="ambient" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<!-- ══════ STAGE ══════ -->
+<div class="stage">
+<div class="app-shell">
+
+    <!-- ═══════════════ MAIN SCROLL AREA ═══════════════ -->
+    <div id="main-container">
+
+        <!-- ══════════ VIEW: INICIO ══════════ -->
+        <div id="view-inicio" class="view-section space-y-5">
+
+            <!-- ░░ HERO ░░ -->
+            <section class="hero shine">
+                <div class="hero-orb"></div>
+
+                <div class="relative z-10">
+                    <span class="badge">
+                        <span class="dot"></span>
+                        Impresión Láser Instantánea
+                    </span>
+
+                    <h1 class="hero-title mt-3.5">
+                        Copias a <span class="grad-text">Color</span><br>
+                        y <span style="color:#fff">Blanco / Negro</span>
+                    </h1>
+
+                    <p class="text-[11.5px] text-zinc-400 mt-2 leading-relaxed max-w-[86%]">
+                        Selecciona el tipo de impresión y arma tu cotización en segundos.
+                    </p>
+                </div>
+
+                <div class="mt-5 grid grid-cols-2 gap-3 relative z-10">
+
+                    <!-- Color tile -->
+                    <button onclick="openCopiasModal('color')" class="tile tile-color text-left">
+                        <span class="go"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                        <div class="flex items-center gap-2.5">
+                            <div class="swatch swatch-color"></div>
+                            <span class="text-[12.5px] font-bold text-white tracking-tight">Color</span>
+                        </div>
+                        <div class="mt-3.5 flex items-baseline gap-1">
+                            <span class="price text-[23px] text-[#ff8a72]">$0.25</span>
+                            <span class="text-[9.5px] text-zinc-500 font-medium">/pág</span>
+                        </div>
+                        <div class="mt-2 flex items-center gap-1 text-[9.5px] font-semibold text-[#ff8a72]/80">
+                            <span>Cotizar</span>
+                            <i class="fa-solid fa-chevron-right text-[7px]"></i>
+                        </div>
+                    </button>
+
+                    <!-- B/N tile -->
+                    <button onclick="openCopiasModal('bn')" class="tile tile-mono text-left">
+                        <span class="go"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                        <div class="flex items-center gap-2.5">
+                            <div class="swatch swatch-mono">B</div>
+                            <span class="text-[12.5px] font-bold text-white tracking-tight">B / N</span>
+                        </div>
+                        <div class="mt-3.5 flex items-baseline gap-1">
+                            <span class="price text-[23px] text-white">$0.20</span>
+                            <span class="text-[9.5px] text-zinc-500 font-medium">/pág</span>
+                        </div>
+                        <div class="mt-2 flex items-center gap-1 text-[9.5px] font-semibold text-zinc-400">
+                            <span>Cotizar</span>
+                            <i class="fa-solid fa-chevron-right text-[7px]"></i>
+                        </div>
+                    </button>
+
+                </div>
+            </section>
+
+            <!-- ░░ INVESTIGACIONES ░░ -->
+            <section class="surface shine p-5">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="icon-chip">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-[15px] font-bold text-white tracking-tight" style="font-family:'Sora',sans-serif;">Investigaciones</h2>
+                            <p class="text-[10.5px] text-zinc-500 mt-0.5">Toca una extensión para empezar.</p>
+                        </div>
+                    </div>
+                    <button onclick="openInvestigacionModal()" class="btn btn-soft !px-3 !py-2 !text-[10.5px] !rounded-[13px]">
+                        <i class="fa-solid fa-sliders text-[#ff6b5a] text-[10px]"></i> A medida
+                    </button>
+                </div>
+
+                <div class="divider my-4"></div>
+
+                <div class="inv-grid">
+                    <button onclick="selectInvestigacionPages(2, 1.50)" class="inv-row">
+                        <span class="q">1 a 2 <em>hojas</em></span>
+                        <span class="p">$1.50</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(3, 2.00)" class="inv-row">
+                        <span class="q">3 <em>hojas</em></span>
+                        <span class="p">$2.00</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(4, 3.00)" class="inv-row">
+                        <span class="q">4 <em>hojas</em></span>
+                        <span class="p">$3.00</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(5, 3.50)" class="inv-row">
+                        <span class="q">5 <em>hojas</em></span>
+                        <span class="p">$3.50</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(6, 4.25)" class="inv-row">
+                        <span class="q">6 <em>hojas</em></span>
+                        <span class="p">$4.25</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(7, 4.50)" class="inv-row">
+                        <span class="q">7 <em>hojas</em></span>
+                        <span class="p">$4.50</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(8, 5.00)" class="inv-row">
+                        <span class="q">8 <em>hojas</em></span>
+                        <span class="p">$5.00</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(10, 5.50)" class="inv-row">
+                        <span class="q">10 <em>hojas</em></span>
+                        <span class="p">$5.50</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(12, 6.00)" class="inv-row">
+                        <span class="q">12 <em>hojas</em></span>
+                        <span class="p">$6.00</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(15, 6.50)" class="inv-row">
+                        <span class="q">15 <em>hojas</em></span>
+                        <span class="p">$6.50</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(20, 7.50)" class="inv-row">
+                        <span class="q">20 <em>hojas</em></span>
+                        <span class="p">$7.50</span>
+                    </button>
+                    <button onclick="selectInvestigacionPages(25, 8.00)" class="inv-row">
+                        <span class="q">25 <em>hojas</em></span>
+                        <span class="p">$8.00</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ░░ FOTO CARNET + CV ░░ -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+
+                <button onclick="openFotoCarnetModal()" class="surface shine p-4 text-left group relative overflow-hidden">
+                    <div class="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-[#ff3d3d]/12 blur-2xl group-hover:bg-[#ff3d3d]/25 transition-all duration-500 pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-chip soft">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-[12.5px] font-bold text-white tracking-tight">Foto Carnet</h3>
+                                <p class="text-[10px] text-zinc-500">En hoja normal</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-end justify-between">
+                            <div class="px-3 py-1.5 rounded-[13px] bg-white/[.045] border border-white/[.07]">
+                                <span class="price text-[16px] text-white">$0.50</span>
+                                <span class="block text-[8.5px] text-zinc-500 font-medium mt-0.5">por hoja</span>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-[#ff6b5a] flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                                Solicitar <i class="fa-solid fa-arrow-right text-[8px]"></i>
+                            </span>
+                        </div>
+                    </div>
+                </button>
+
+                <button onclick="openCvModal()" class="surface shine p-4 text-left group relative overflow-hidden">
+                    <div class="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-[#7c3cff]/12 blur-2xl group-hover:bg-[#7c3cff]/25 transition-all duration-500 pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-chip soft">
+                                <i class="fa-solid fa-file-pen"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-[12.5px] font-bold text-white tracking-tight">Hacer CV</h3>
+                                <p class="text-[10px] text-zinc-500">Profesional y listo</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-end justify-between">
+                            <div class="px-3 py-1.5 rounded-[13px] bg-white/[.045] border border-white/[.07]">
+                                <span class="price text-[16px] text-white">$4.50</span>
+                                <span class="block text-[8.5px] text-zinc-500 font-medium mt-0.5">tarifa fija</span>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-[#ff6b5a] flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                                Crear CV <i class="fa-solid fa-arrow-right text-[8px]"></i>
+                            </span>
+                        </div>
+                    </div>
+                </button>
+
+            </div>
+
+            <!-- ░░ FEATURES ░░ -->
+            <section class="surface p-3.5 grid grid-cols-2 gap-x-2 gap-y-1">
+                <div class="feat">
+                    <div class="fi"><i class="fa-solid fa-shield-halved"></i></div>
+                    <span class="text-[10.5px] text-zinc-300 leading-tight font-medium">Contenido verificado</span>
+                </div>
+                <div class="feat">
+                    <div class="fi"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <span class="text-[10.5px] text-zinc-300 leading-tight font-medium">Diseño profesional</span>
+                </div>
+                <div class="feat">
+                    <div class="fi"><i class="fa-solid fa-print"></i></div>
+                    <span class="text-[10.5px] text-zinc-300 leading-tight font-medium">Alta calidad láser</span>
+                </div>
+                <div class="feat">
+                    <div class="fi"><i class="fa-solid fa-bolt"></i></div>
+                    <span class="text-[10.5px] text-zinc-300 leading-tight font-medium">Atención inmediata</span>
+                </div>
+            </section>
+
+            <!-- spacer so dock never covers content -->
+            <div class="h-2"></div>
+
+        </div>
+
+        <!-- ══════════ VIEW: SERVICIOS ══════════ -->
+        <div id="view-servicios" class="view-section hidden space-y-4">
+
+            <div class="px-1 pt-1">
+                <h2 class="text-[20px] font-extrabold tracking-tight text-white" style="font-family:'Sora',sans-serif; letter-spacing:-.03em;">
+                    Catálogo de <span class="grad-text">Servicios</span>
+                </h2>
+                <p class="text-[11.5px] text-zinc-500 mt-1">Toca cualquier servicio para activarlo.</p>
+            </div>
+
+            <div class="space-y-3">
+
+                <button onclick="openCopiasModal('color')" class="svc w-full text-left">
+                    <div class="flex items-center gap-3.5 min-w-0">
+                        <div class="icon-chip"><i class="fa-solid fa-print"></i></div>
+                        <div class="min-w-0">
+                            <h3 class="text-[12.5px] font-bold text-white tracking-tight">Copias e Impresiones A4 / Carta</h3>
+                            <p class="text-[10.5px] text-zinc-500 mt-0.5">Color <span class="text-[#ff6b5a] font-semibold">$0.25</span> · B/N <span class="text-zinc-300 font-semibold">$0.20</span></p>
+                        </div>
+                    </div>
+                    <div class="chev"><i class="fa-solid fa-chevron-right"></i></div>
+                </button>
+
+                <button onclick="openInvestigacionModal()" class="svc w-full text-left">
+                    <div class="flex items-center gap-3.5 min-w-0">
+                        <div class="icon-chip"><i class="fa-solid fa-book"></i></div>
+                        <div class="min-w-0">
+                            <h3 class="text-[12.5px] font-bold text-white tracking-tight">Investigaciones Académicas</h3>
+                            <p class="text-[10.5px] text-zinc-500 mt-0.5">Desde $1.50 · hasta $8.00</p>
+                        </div>
+                    </div>
+                    <div class="chev"><i class="fa-solid fa-chevron-right"></i></div>
+                </button>
+
+                <button onclick="openFotoCarnetModal()" class="svc w-full text-left">
+                    <div class="flex items-center gap-3.5 min-w-0">
+                        <div class="icon-chip"><i class="fa-solid fa-id-card"></i></div>
+                        <div class="min-w-0">
+                            <h3 class="text-[12.5px] font-bold text-white tracking-tight">Fotos Carnet / Pasaporte</h3>
+                            <p class="text-[10.5px] text-zinc-500 mt-0.5">$0.50 por hoja normal</p>
+                        </div>
+                    </div>
+                    <div class="chev"><i class="fa-solid fa-chevron-right"></i></div>
+                </button>
+
+                <button onclick="openCvModal()" class="svc w-full text-left">
+                    <div class="flex items-center gap-3.5 min-w-0">
+                        <div class="icon-chip"><i class="fa-solid fa-briefcase"></i></div>
+                        <div class="min-w-0">
+                            <h3 class="text-[12.5px] font-bold text-white tracking-tight">Elaboración de Currículum</h3>
+                            <p class="text-[10.5px] text-zinc-500 mt-0.5">Profesional y optimizado · $4.50</p>
+                        </div>
+                    </div>
+                    <div class="chev"><i class="fa-solid fa-chevron-right"></i></div>
+                </button>
+
+            </div>
+
+            <!-- info card -->
+            <div class="surface p-4 mt-2">
+                <div class="flex items-start gap-3">
+                    <div class="icon-chip soft !w-9 !h-9 !rounded-[13px] !text-[11px]">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-[11.5px] font-bold text-white">¿Necesitas algo especial?</h4>
+                        <p class="text-[10.5px] text-zinc-500 mt-1 leading-relaxed">
+                            Escríbenos por WhatsApp y te cotizamos cualquier trabajo personalizado al instante.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-2"></div>
+        </div>
+
+    </div>
+
+    <!-- ═══════════════ FLOATING CHECKOUT BAR ═══════════════ -->
+    <div id="quick-checkout-bar" class="translate-y-28 opacity-0 pointer-events-none">
+        <div class="flex items-center gap-3 relative z-10 min-w-0">
+            <div class="bar-count" id="cart-count-badge">0</div>
+            <div class="min-w-0">
+                <h4 class="text-[11.5px] font-bold leading-tight truncate">Pedido listo</h4>
+                <span id="quick-total" class="text-[10.5px] text-white/75 font-semibold">$0.00 total</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-2 relative z-10 flex-shrink-0">
+            <button onclick="openCartModal()" class="btn-ghost">Ver</button>
+            <button onclick="checkoutDirectToWhatsApp()" class="btn-wa">
+                <i class="fa-brands fa-whatsapp text-[13px]"></i> Enviar
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════════ DOCK NAV ═══════════════ -->
+    <div class="dock-wrap">
+        <div class="dock">
+            <span class="dock-pill" id="dock-pill"></span>
+
+            <button onclick="switchTab('inicio')" id="nav-inicio" class="dock-btn active">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </button>
+            <button onclick="switchTab('servicios')" id="nav-servicios" class="dock-btn">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Servicios</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL · COPIAS
+     ═══════════════════════════════════════════════════════ -->
+<div id="modal-copias" class="modal-overlay hidden">
+    <div class="modal-panel">
+        <button onclick="closeModal('modal-copias')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+
+        <h3 class="modal-title">
+            <span class="icon-chip soft !w-8 !h-8 !rounded-[12px] !text-[12px]"><i class="fa-solid fa-print"></i></span>
+            Cotizador de Copias
+        </h3>
+
+        <div class="space-y-4 mt-5 text-xs">
+
+            <div>
+                <label class="label">Tipo de impresión</label>
+                <select id="copia-tipo" onchange="calculateCopiasTotal()" class="field">
+                    <option value="color">A Color — $0.25 / página</option>
+                    <option value="bn">Blanco y Negro — $0.20 / página</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="label">Páginas</label>
+                    <input type="number" id="copia-paginas" min="1" value="10" oninput="calculateCopiasTotal()" class="field">
+                </div>
+                <div>
+                    <label class="label">Copias c/u</label>
+                    <input type="number" id="copia-copias" min="1" value="1" oninput="calculateCopiasTotal()" class="field">
+                </div>
+            </div>
+
+            <div class="summary">
+                <span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Total estimado</span>
+                <span id="copia-total-precio" class="val">$2.50</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <button onclick="addCopiasToCart(false)" class="btn btn-soft">Añadir</button>
+                <button onclick="addCopiasToCart(true)" class="btn btn-wa">
+                    <i class="fa-brands fa-whatsapp text-[14px]"></i> Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL · INVESTIGACIÓN
+     ═══════════════════════════════════════════════════════ -->
+<div id="modal-investigacion" class="modal-overlay hidden">
+    <div class="modal-panel">
+        <button onclick="closeModal('modal-investigacion')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+
+        <h3 class="modal-title">
+            <span class="icon-chip soft !w-8 !h-8 !rounded-[12px] !text-[12px]"><i class="fa-solid fa-book"></i></span>
+            Configurar Investigación
+        </h3>
+
+        <div class="space-y-4 mt-5 text-xs">
+
+            <div class="summary !py-3">
+                <span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Extensión</span>
+                <span id="inv-seleccion-txt" class="text-[14px] font-extrabold text-[#ff6b5a]" style="font-family:'Sora',sans-serif;">5 hojas — $3.50</span>
+            </div>
+
+            <div>
+                <label class="label">Tema o asunto del trabajo</label>
+                <input type="text" id="inv-tema" placeholder="Ej: Revolución Industrial…" class="field">
+            </div>
+
+            <div>
+                <label class="label">Indicaciones adicionales</label>
+                <textarea id="inv-notas" rows="2" placeholder="Ej: Incluir índice, imágenes, formato APA…" class="field"></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <button onclick="addInvestigacionToCart(false)" class="btn btn-soft">Añadir</button>
+                <button onclick="addInvestigacionToCart(true)" class="btn btn-wa">
+                    <i class="fa-brands fa-whatsapp text-[14px]"></i> Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL · FOTO CARNET
+     ═══════════════════════════════════════════════════════ -->
+<div id="modal-fotocarnet" class="modal-overlay hidden">
+    <div class="modal-panel">
+        <button onclick="closeModal('modal-fotocarnet')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+
+        <h3 class="modal-title">
+            <span class="icon-chip soft !w-8 !h-8 !rounded-[12px] !text-[12px]"><i class="fa-solid fa-user"></i></span>
+            Fotos Carnet
+        </h3>
+
+        <div class="space-y-4 mt-5 text-xs">
+
+            <div>
+                <label class="label">Cantidad de hojas · $0.50 c/u</label>
+                <input type="number" id="carnet-cantidad" min="1" value="1" oninput="calculateCarnetTotal()" class="field">
+            </div>
+
+            <div class="summary">
+                <span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Total</span>
+                <span id="carnet-total" class="val">$0.50</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <button onclick="addCarnetToCart(false)" class="btn btn-soft">Añadir</button>
+                <button onclick="addCarnetToCart(true)" class="btn btn-wa">
+                    <i class="fa-brands fa-whatsapp text-[14px]"></i> Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL · CV
+     ═══════════════════════════════════════════════════════ -->
+<div id="modal-cv" class="modal-overlay hidden">
+    <div class="modal-panel">
+        <button onclick="closeModal('modal-cv')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+
+        <h3 class="modal-title">
+            <span class="icon-chip soft !w-8 !h-8 !rounded-[12px] !text-[12px]"><i class="fa-solid fa-file-pen"></i></span>
+            Elaboración de CV
+            <span class="text-[10px] font-bold text-[#ff6b5a] bg-[#ff3d3d]/12 border border-[#ff3d3d]/25 px-2 py-0.5 rounded-full ml-auto mr-9">$4.50</span>
+        </h3>
+
+        <div class="space-y-4 mt-5 text-xs">
+
+            <div>
+                <label class="label">Nombre completo</label>
+                <input type="text" id="cv-nombre" placeholder="Tu nombre…" class="field">
+            </div>
+
+            <div>
+                <label class="label">Profesión u oficio</label>
+                <input type="text" id="cv-profesion" placeholder="Ej: Contable, Vendedor…" class="field">
+            </div>
+
+            <div>
+                <label class="label">Teléfono / contacto</label>
+                <input type="text" id="cv-contacto" placeholder="Para enviarte el borrador…" class="field">
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <button onclick="addCvToCart(false)" class="btn btn-soft">Añadir</button>
+                <button onclick="addCvToCart(true)" class="btn btn-wa">
+                    <i class="fa-brands fa-whatsapp text-[14px]"></i> Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL · CARRITO
+     ═══════════════════════════════════════════════════════ -->
+<div id="modal-cart" class="modal-overlay hidden">
+    <div class="modal-panel flex flex-col" style="max-height: 92dvh;">
+        <button onclick="closeModal('modal-cart')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+
+        <h3 class="modal-title">
+            <span class="icon-chip soft !w-8 !h-8 !rounded-[12px] !text-[12px]"><i class="fa-solid fa-bag-shopping"></i></span>
+            Resumen del Pedido
+        </h3>
+
+        <div id="cart-modal-items" class="flex-1 overflow-y-auto space-y-2.5 mt-5 pr-0.5" style="scrollbar-width:none;">
+            <!-- dinámico -->
+        </div>
+
+        <div class="pt-4 mt-4 border-t border-white/[.07] space-y-3.5">
+
+            <div>
+                <label class="label block mb-2.5">Método de pago</label>
+                <div class="grid grid-cols-2 gap-2.5">
+
+                    <div id="pay-opt-yappy" onclick="selectPayment('yappy')" class="pay-opt sel">
+                        <input type="radio" id="rad-yappy" name="payment" checked>
+                        <div class="min-w-0">
+                            <span class="text-[11.5px] font-bold text-white block leading-tight">Yappy</span>
+                            <span class="text-[9.5px] text-[#ff8a72] font-mono tracking-tight">63659803</span>
+                        </div>
+                    </div>
+
+                    <div id="pay-opt-efectivo" onclick="selectPayment('efectivo')" class="pay-opt">
+                        <input type="radio" id="rad-efectivo" name="payment">
+                        <div class="min-w-0">
+                            <span class="text-[11.5px] font-bold text-white block leading-tight">Efectivo</span>
+                            <span class="text-[9.5px] text-zinc-500 block">Al entregar</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="summary">
+                <span class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Total a pagar</span>
+                <span id="cart-modal-total" class="val">$0.00</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+                <button onclick="clearCart()" class="btn btn-danger">
+                    <i class="fa-solid fa-trash-can text-[11px]"></i> Vaciar
+                </button>
+                <button onclick="checkoutDirectToWhatsApp()" class="btn btn-wa">
+                    <i class="fa-brands fa-whatsapp text-[14px]"></i> Enviar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     OFFCANVAS · FACTURA PNG
+     ═══════════════════════════════════════════════════════ -->
+<div id="invoice-receipt-wrapper" style="position: absolute; left: -9999px; top: -9999px;">
+    <div id="invoice-receipt" style="width: 400px; background-color: #09090b; color: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #27272a; font-family: 'Inter', sans-serif; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);">
+        <div style="height: 4px; background: linear-gradient(to right, #dc2626, #ef4444, #b91c1c); margin: -24px -24px 20px -24px; border-top-left-radius: 16px; border-top-right-radius: 16px;"></div>
+
+        <div style="text-align: center; padding-bottom: 16px; border-bottom: 1px solid #27272a;">
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 16px; background-color: rgba(220, 38, 38, 0.2); color: #ef4444; margin-bottom: 8px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                <i class="fa-solid fa-print" style="font-size: 20px;"></i>
+            </div>
+            <h2 style="font-size: 20px; font-weight: 800; text-transform: uppercase; color: #ffffff; margin: 0;">PrintMaster Pro</h2>
+            <p style="font-size: 11px; color: #a1a1aa; margin-top: 2px;">Comprobante de Pedido &amp; Factura</p>
+            <div style="margin-top: 10px; font-size: 10px; color: #71717a; display: flex; justify-content: space-between; align-items: center;">
+                <span id="inv-date">--/--/----</span>
+                <span id="inv-num" style="font-family: monospace; color: #f87171; font-weight: 700;">#ORD-0000</span>
+            </div>
+        </div>
+
+        <div style="padding-top: 16px; padding-bottom: 16px;">
+            <div style="font-size: 10px; font-weight: 700; color: #71717a; text-transform: uppercase; letter-spacing: 0.05em; display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px solid #27272a;">
+                <span>Descripción / Servicio</span>
+                <span>Total</span>
+            </div>
+            <div id="inv-items-container" style="margin-top: 10px; display: flex; flex-direction: column; gap: 10px; font-size: 12px;">
+                <!-- dinámico -->
+            </div>
+        </div>
+
+        <div style="padding-top: 12px; border-top: 1px solid #27272a; display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; color: #a1a1aa;">
+                <span>Método de Pago:</span>
+                <span id="inv-payment" style="font-weight: 700; color: #ffffff;">Yappy</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid #18181b; font-size: 14px; font-weight: 800;">
+                <span style="color: #ffffff;">TOTAL A PAGAR:</span>
+                <span id="inv-total" style="font-size: 20px; color: #ef4444; font-weight: 900;">$0.00</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; padding-top: 12px; border-top: 1px solid #27272a; text-align: center;">
+            <p style="font-size: 10px; color: #a1a1aa; margin: 0;">¡Gracias por tu preferencia!</p>
+            <p style="font-size: 9px; color: #52525b; margin-top: 2px;">Impresión Láser Instantánea y Servicios Profesionales</p>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL · ENVÍO WHATSAPP
+     ═══════════════════════════════════════════════════════ -->
+<div id="modal-whatsapp-send" class="modal-overlay hidden">
+    <div class="modal-panel text-center">
+        <button onclick="closeModal('modal-whatsapp-send')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+
+        <div class="wa-orb mx-auto mt-2">
+            <i class="fa-brands fa-whatsapp"></i>
+        </div>
+
+        <div class="mt-4">
+            <h3 class="text-[15px] font-bold text-white tracking-tight" style="font-family:'Sora',sans-serif;">Factura lista para enviar</h3>
+            <p class="text-[11px] text-zinc-500 mt-1.5 leading-relaxed" id="whatsapp-instructions-text">
+                La factura se copió y descargó en tu dispositivo.
+            </p>
+        </div>
+
+        <div class="mt-5 p-4 rounded-[20px] bg-white/[.035] border border-white/[.07] text-left">
+            <div class="flex items-center gap-2 text-[11px] font-bold text-[#6ef0bd] mb-2.5">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Pasos sencillos</span>
+            </div>
+            <ol class="step-list text-[10.5px] text-zinc-400 space-y-2 leading-relaxed">
+                <li>Al abrirse WhatsApp, mantén presionado el campo de texto y pulsa <b class="text-zinc-200">"Pegar"</b>.</li>
+                <li>Adjunta la imagen descargada y envía el mensaje.</li>
+            </ol>
+        </div>
+
+        <button id="btn-open-wa-final" onclick="executeWhatsAppLaunch()" class="btn btn-wa w-full mt-5 !py-3.5 !text-[12.5px]">
+            <i class="fa-brands fa-whatsapp text-[16px]"></i> Abrir WhatsApp y Enviar
+        </button>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TOAST
+     ═══════════════════════════════════════════════════════ -->
+<div id="toast">
+    <i class="fa-solid fa-circle-check text-[#ff5a4a]" id="toast-icon"></i>
+    <span id="toast-msg">Acción realizada con éxito</span>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   CONFIG
+   ══════════════════════════════════════════════════════ */
+const WHATSAPP_PHONE = "50763659803";
+
+let cart = [];
+let currentInvPages = 5;
+let currentInvPrice = 3.50;
+let selectedPayment = "Yappy (63659803)";
+let pendingWhatsAppUrl = "";
+let toastTimer = null;
+
+/* ══════════════════════════════════════════════════════
+   TOAST
+   ══════════════════════════════════════════════════════ */
+function showToast(message, iconClass = 'fa-solid fa-circle-check text-[#ff5a4a]') {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toast-msg');
+    const toastIcon = document.getElementById('toast-icon');
+    if (!toast || !toastMsg || !toastIcon) return;
+
+    toastMsg.innerText = message;
+    toastIcon.className = iconClass;
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+/* ══════════════════════════════════════════════════════
+   NAVEGACIÓN
+   ══════════════════════════════════════════════════════ */
+function switchTab(tabId) {
+    document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+
+    const targetView = document.getElementById(`view-${tabId}`);
+    if (targetView) targetView.classList.remove('hidden');
+
+    const navInicio = document.getElementById('nav-inicio');
+    const navServicios = document.getElementById('nav-servicios');
+    const pill = document.getElementById('dock-pill');
+
+    if (tabId === 'inicio') {
+        navInicio.classList.add('active');
+        navServicios.classList.remove('active');
+        if (pill) pill.classList.remove('right');
+    } else {
+        navServicios.classList.add('active');
+        navInicio.classList.remove('active');
+        if (pill) pill.classList.add('right');
+    }
+
+    const scroller = document.getElementById('main-container');
+    if (scroller) scroller.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ══════════════════════════════════════════════════════
+   MODALES
+   ══════════════════════════════════════════════════════ */
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.add('hidden');
+    if (!document.querySelector('.modal-overlay:not(.hidden)')) {
+        document.body.style.overflow = '';
+    }
+}
+
+// Cierre al tocar el fondo
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal(overlay.id);
+    });
+});
+
+/* ══════════════════════════════════════════════════════
+   COPIAS
+   ══════════════════════════════════════════════════════ */
+function openCopiasModal(tipoDefault = 'color') {
+    const copiaTipo = document.getElementById('copia-tipo');
+    if (copiaTipo) copiaTipo.value = tipoDefault;
+    calculateCopiasTotal();
+    openModal('modal-copias');
+}
+
+function calculateCopiasTotal() {
+    const tipo = document.getElementById('copia-tipo').value;
+    const pags = Math.max(1, parseInt(document.getElementById('copia-paginas').value) || 0);
+    const copias = Math.max(1, parseInt(document.getElementById('copia-copias').value) || 0);
+    const rate = tipo === 'color' ? 0.25 : 0.20;
+    const total = pags * copias * rate;
+    const totalLabel = document.getElementById('copia-total-precio');
+    if (totalLabel) totalLabel.innerText = `$${total.toFixed(2)}`;
+}
+
+/* ══════════════════════════════════════════════════════
+   INVESTIGACIÓN
+   ══════════════════════════════════════════════════════ */
+function openInvestigacionModal() {
+    const lbl = document.getElementById('inv-seleccion-txt');
+    if (lbl) lbl.innerText = `${currentInvPages} hojas — $${currentInvPrice.toFixed(2)}`;
+    openModal('modal-investigacion');
+}
+
+function selectInvestigacionPages(pages, price) {
+    currentInvPages = pages;
+    currentInvPrice = price;
+    openInvestigacionModal();
+}
+
+/* ══════════════════════════════════════════════════════
+   FOTO CARNET
+   ══════════════════════════════════════════════════════ */
+function openFotoCarnetModal() {
+    calculateCarnetTotal();
+    openModal('modal-fotocarnet');
+}
+
+function calculateCarnetTotal() {
+    const cant = Math.max(1, parseInt(document.getElementById('carnet-cantidad').value) || 1);
+    const totalLabel = document.getElementById('carnet-total');
+    if (totalLabel) totalLabel.innerText = `$${(cant * 0.50).toFixed(2)}`;
+}
+
+/* ══════════════════════════════════════════════════════
+   CV
+   ══════════════════════════════════════════════════════ */
+function openCvModal() {
+    openModal('modal-cv');
+}
+
+/* ══════════════════════════════════════════════════════
+   CARRITO · MODAL
+   ══════════════════════════════════════════════════════ */
+function openCartModal() {
+    renderCartModal();
+    openModal('modal-cart');
+}
+
+function selectPayment(type) {
+    const yappyOpt = document.getElementById('pay-opt-yappy');
+    const efectivoOpt = document.getElementById('pay-opt-efectivo');
+    const radYappy = document.getElementById('rad-yappy');
+    const radEfectivo = document.getElementById('rad-efectivo');
+
+    if (type === 'yappy') {
+        selectedPayment = "Yappy (63659803)";
+        yappyOpt.classList.add('sel'); yappyOpt.classList.remove('sel-green');
+        efectivoOpt.classList.remove('sel', 'sel-green');
+        radYappy.checked = true;
+    } else {
+        selectedPayment = "Efectivo";
+        efectivoOpt.classList.add('sel-green'); efectivoOpt.classList.remove('sel');
+        yappyOpt.classList.remove('sel', 'sel-green');
+        radEfectivo.checked = true;
+    }
+}
+
+/* ══════════════════════════════════════════════════════
+   CARRITO · ESTADO
+   ══════════════════════════════════════════════════════ */
+function updateCartBar() {
+    const bar = document.getElementById('quick-checkout-bar');
+    const countBadge = document.getElementById('cart-count-badge');
+    const totalText = document.getElementById('quick-total');
+    if (!bar || !countBadge || !totalText) return;
+
+    if (cart.length === 0) {
+        bar.classList.add('translate-y-28', 'opacity-0', 'pointer-events-none');
+        bar.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    } else {
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        countBadge.innerText = cart.length;
+        totalText.innerText = `$${total.toFixed(2)} total`;
+
+        bar.classList.remove('translate-y-28', 'opacity-0', 'pointer-events-none');
+        bar.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    }
+}
+
+function renderCartModal() {
+    const container = document.getElementById('cart-modal-items');
+    const totalLabel = document.getElementById('cart-modal-total');
+    if (!container || !totalLabel) return;
+
+    if (cart.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <p class="text-[11.5px] font-semibold text-zinc-500">Tu pedido está vacío</p>
+                <p class="text-[10px] text-zinc-600 mt-1">Agrega un servicio para comenzar</p>
+            </div>
+        `;
+        totalLabel.innerText = '$0.00';
+        return;
+    }
+
+    let html = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+        html += `
+            <div class="cart-item">
+                <div class="min-w-0 flex-1">
+                    <h4 class="text-[11.5px] font-bold text-white leading-tight">${item.title}</h4>
+                    <p class="text-[10px] text-zinc-500 mt-1 leading-relaxed break-words">${item.details || ''}</p>
+                    <span class="text-[12.5px] font-extrabold text-[#ff6b5a] mt-1.5 block" style="font-family:'Sora',sans-serif;">$${item.price.toFixed(2)}</span>
+                </div>
+                <button onclick="removeFromCart(${index})" class="cart-del">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+    totalLabel.innerText = `$${total.toFixed(2)}`;
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    renderCartModal();
+    updateCartBar();
+    showToast('Elemento eliminado', 'fa-solid fa-trash text-zinc-400');
+}
+
+function clearCart() {
+    cart = [];
+    renderCartModal();
+    updateCartBar();
+    closeModal('modal-cart');
+    showToast('Pedido vaciado', 'fa-solid fa-rotate-left text-zinc-400');
+}
+
+/* ══════════════════════════════════════════════════════
+   AÑADIR AL CARRITO
+   ══════════════════════════════════════════════════════ */
+function addCopiasToCart(sendDirect = false) {
+    const tipo = document.getElementById('copia-tipo').value;
+    const pags = Math.max(1, parseInt(document.getElementById('copia-paginas').value) || 0);
+    const copias = Math.max(1, parseInt(document.getElementById('copia-copias').value) || 0);
+    const rate = tipo === 'color' ? 0.25 : 0.20;
+    const total = pags * copias * rate;
+    const tipoTexto = tipo === 'color' ? 'Color · $0.25' : 'B/N · $0.20';
+
+    const item = {
+        title: `Copias / Impresiones`,
+        details: `${tipoTexto} — ${pags} págs × ${copias} copias`,
+        price: total
+    };
+
+    if (sendDirect) {
+        sendToWhatsAppDirect([item]);
+    } else {
+        cart.push(item);
+        updateCartBar();
+        closeModal('modal-copias');
+        showToast('Copias añadidas al pedido');
+    }
+}
+
+function addInvestigacionToCart(sendDirect = false) {
+    const tema = document.getElementById('inv-tema').value.trim() || 'No especificado';
+    const notas = document.getElementById('inv-notas').value.trim();
+
+    let details = `${currentInvPages} hojas · Tema: ${tema}`;
+    if (notas) details += ` · Nota: ${notas}`;
+
+    const item = {
+        title: `Investigación Académica`,
+        details: details,
+        price: currentInvPrice
+    };
+
+    if (sendDirect) {
+        sendToWhatsAppDirect([item]);
+    } else {
+        cart.push(item);
+        updateCartBar();
+        closeModal('modal-investigacion');
+        showToast('Investigación añadida al pedido');
+    }
+}
+
+function addCarnetToCart(sendDirect = false) {
+    const cant = Math.max(1, parseInt(document.getElementById('carnet-cantidad').value) || 1);
+    const total = cant * 0.50;
+
+    const item = {
+        title: `Fotos Carnet`,
+        details: `${cant} hoja(s) en papel normal`,
+        price: total
+    };
+
+    if (sendDirect) {
+        sendToWhatsAppDirect([item]);
+    } else {
+        cart.push(item);
+        updateCartBar();
+        closeModal('modal-fotocarnet');
+        showToast('Fotos carnet añadidas al pedido');
+    }
+}
+
+function addCvToCart(sendDirect = false) {
+    const nombre = document.getElementById('cv-nombre').value.trim() || 'No especificado';
+    const profesion = document.getElementById('cv-profesion').value.trim() || 'No especificada';
+    const contacto = document.getElementById('cv-contacto').value.trim();
+
+    let details = `Nombre: ${nombre} · Profesión: ${profesion}`;
+    if (contacto) details += ` · Tel: ${contacto}`;
+
+    const item = {
+        title: `Elaboración de Currículum (CV)`,
+        details: details,
+        price: 4.50
+    };
+
+    if (sendDirect) {
+        sendToWhatsAppDirect([item]);
+    } else {
+        cart.push(item);
+        updateCartBar();
+        closeModal('modal-cv');
+        showToast('Elaboración de CV añadida al pedido');
+    }
+}
+
+function checkoutDirectToWhatsApp() {
+    if (cart.length === 0) {
+        showToast('Agrega al menos un servicio', 'fa-solid fa-triangle-exclamation text-amber-400');
+        return;
+    }
+    sendToWhatsAppDirect(cart);
+    closeModal('modal-cart');
+}
+
+/* ══════════════════════════════════════════════════════
+   FACTURA PNG + WHATSAPP
+   ══════════════════════════════════════════════════════ */
+async function sendToWhatsAppDirect(itemsList) {
+    showToast('Generando comprobante…', 'fa-solid fa-arrows-rotate text-[#ff5a4a] animate-spin');
+
+    const now = new Date();
+    document.getElementById('inv-date').innerText = now.toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' });
+    document.getElementById('inv-num').innerText = `#ORD-${Math.floor(1000 + Math.random() * 9000)}`;
+    document.getElementById('inv-payment').innerText = selectedPayment;
+
+    let total = 0;
+    let invItemsHtml = '';
+    let text = "👋 *Hola, adjunto la factura con el detalle de mi pedido:*\n\n";
+
+    itemsList.forEach((item, i) => {
+        total += item.price;
+        text += `*${i + 1}. ${item.title}*\n`;
+        if (item.details) text += `└ _${item.details}_\n`;
+        text += `└ *Precio:* $${item.price.toFixed(2)}\n\n`;
+
+        invItemsHtml += `
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #18181b; padding-bottom: 6px;">
+                <div style="padding-right: 8px;">
+                    <span style="font-weight: 600; color: #e4e4e7; display: block;">${item.title}</span>
+                    <span style="font-size: 10px; color: #a1a1aa; display: block;">${item.details || ''}</span>
+                </div>
+                <span style="font-weight: 700; color: #f87171; font-family: monospace; white-space: nowrap;">$${item.price.toFixed(2)}</span>
+            </div>
+        `;
+    });
+
+    document.getElementById('inv-items-container').innerHTML = invItemsHtml;
+    document.getElementById('inv-total').innerText = `$${total.toFixed(2)}`;
+
+    text += `💳 *MÉTODO DE PAGO:* ${selectedPayment}\n`;
+    if (selectedPayment.includes("Yappy")) {
+        text += `└ *Número Yappy:* 63659803\n`;
+    }
+    text += `*TOTAL A PAGAR:* $${total.toFixed(2)}\n\n`;
+    text += "📄 *(Factura adjunta en la imagen)*";
+
+    pendingWhatsAppUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+
+    try {
+        const receiptElement = document.getElementById('invoice-receipt');
+
+        const canvas = await html2canvas(receiptElement, {
+            scale: 2,
+            backgroundColor: '#09090b',
+            logging: false,
+            useCORS: true,
+            onclone: (clonedDoc) => {
+                const clonedReceipt = clonedDoc.getElementById('invoice-receipt');
+                if (clonedReceipt) {
+                    clonedReceipt.style.position = 'static';
+                    clonedReceipt.style.display = 'block';
+                }
+            }
+        });
+
+        canvas.toBlob(async (blob) => {
+            let sharedNatively = false;
+
+            if (navigator.canShare && blob) {
+                const file = new File([blob], `Factura_PrintMaster_${Date.now()}.png`, { type: 'image/png' });
+                if (navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({
+                            title: 'Factura PrintMaster Pro',
+                            text: text,
+                            files: [file]
+                        });
+                        sharedNatively = true;
+                        showToast('¡Factura enviada con éxito!', 'fa-brands fa-whatsapp text-[#6ef0bd]');
+                        return;
+                    } catch (err) {
+                        console.log('Web Share cancelado o no soportado.');
+                    }
+                }
+            }
+
+            if (!sharedNatively) {
+                try {
+                    if (navigator.clipboard && window.ClipboardItem) {
+                        const item = new ClipboardItem({ 'image/png': blob });
+                        await navigator.clipboard.write([item]);
+                    }
+                } catch (e) {
+                    console.log('No se pudo copiar al portapapeles:', e);
+                }
+
+                const link = document.createElement('a');
+                link.download = `Factura_PrintMaster_${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+
+                openModal('modal-whatsapp-send');
+            }
+        }, 'image/png');
+
+    } catch (err) {
+        console.error("Error generando PNG:", err);
+        window.open(pendingWhatsAppUrl, '_blank');
+    }
+}
+
+function executeWhatsAppLaunch() {
+    closeModal('modal-whatsapp-send');
+    if (pendingWhatsAppUrl) {
+        window.open(pendingWhatsAppUrl, '_blank');
+    }
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+    calculateCopiasTotal();
+    updateCartBar();
+});
+</script>
+
+</body>
+</html>
